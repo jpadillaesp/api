@@ -26,8 +26,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'full_name', 'email', 'blacklist', 'flatpassword', 'password', 'disable', 'api_token'
+        'full_name', 'email', 'black_listed', 'flatpassword', 'password', 'disable', 'api_token'
     ];
+    protected $table = 'users';
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -37,6 +38,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'flatpassword', 'password', 'remember_token'
     ];
+    
 
     public function orchestratorRooms() {
         return $this->hasMany(OrchestratorRoom::class);

@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Models\User;
 
 class AuthController extends Controller {
+
+    private $Errors = ['errors' => ['status' => false, 'message' => 'It was completed successfully.']];
+    public $_Auth = null;
 
     /**
      * Display a listing of the resource.
@@ -24,36 +28,35 @@ class AuthController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $response = ['errors' => ['error' => false, 'message' => 'Successful Login of User.']];
-
-        $validator = Validator::make($request->all(), [
-                    'email' => 'required|email',
-                    'password' => 'required'
-                ])->fails();
-
-        if ($validator->fails()) {
-            $response['errors']['error'] = true;
-            $response['errors']['message'] = $validator->errors()->all();
-        }
-
-        $user = null;
-        
         try {
-            $user = User::where('email', $request->input('email'))->first();
-        } catch (RuntimeException $e) {
-            $response['errors']['error'] = true;
-            $response['errors']['message'] = $e->getMessage();
-        }
+            $this->Errors['errors']['status'] = false;
+            $this->Errors['errors']['message'] = 'Successful Login of User.';
+            $validator = Validator::make($request->all(), [
+                        'email' => 'required|email',
+                        'password' => 'required'
+            ]);
 
-        if (count($user)) {
-            if (password_verify($request->input('password'), $user->password)) {
-                unset($user->password);
-                return response()->json(array($response, 'user' => $user));
-            } else {
-                return response()->json($response);
+            if ($validator->fails()) {
+                $this->Errors['errors']['status'] = true;
+                $this->Errors['errors']['message'] = $validator->errors()->all();
             }
-        } else {
-            return response()->json($response);
+
+            $this->_Auth = User::where('email', $request->input('email'))->first();
+//            dd($this->_Auth );
+            if (isset($this->_Auth)) {
+                if (password_verify($request->input('password'), $this->_Auth->password)) {
+                    //unset($this->_Auth->password);
+                    return response()->json(array('errors' => $this->Errors['errors'], 'user' => $this->_Auth),201);
+                } else {
+                    return response()->json($this->Errors);
+                }
+            } else {
+                return response()->json($this->Errors);
+            }
+        } catch (Exception $exc) {
+            $this->Errors['errors']['error'] = true;
+            $this->Errors['errors']['message'] = $exc->getMessage();
+            return response()->json($this->Errors);
         }
     }
 

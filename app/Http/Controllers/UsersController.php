@@ -22,23 +22,23 @@ class UsersController extends Controller {
 
     public function create(Request $request) {
         try {
-            $validator = Validator::make($request->all(), [
-                        'full_name' => 'required',
-                        'password' => 'required',
-                        'email' => 'required|email'
-            ]);
+            $validator = Validator::make($request->all(), ['full_name' => 'required', 'email' => 'required|email', 'password' => 'required']);
             if ($validator->fails()) {
                 $this->Errors['errors']['error'] = true;
                 $this->Errors['errors']['message'] = $validator->errors()->all();
             }
-            $request['flatpassword'] = $request['password'];
-            $request['api_token'] = str_random(60);
-            $request['password'] = (new BcryptHasher)->make($request['password']); //        $request['password'] = app('hash')->make($request['password']);
+            $temp = $request['password'];
+            $request['password'] = (new BcryptHasher)->make($request['password']);
+            $request->merge(array('flatpassword' => $temp));
+            $request->merge(array('api_token' => str_random(36))); 
+//            $request->merge(array('password_changed' => date('Y-m-d')));
+//            dd($request->all());
             $this->User = User::create($request->all());
-            return response()->json(array($this->Errors, 'user' => $this->User));
+            $this->User->save();
+            return response()->json(array($this->Errors, 'user' => $this->User), 201);
         } catch (Exception $exc) {
             $this->Errors['errors']['error'] = true;
-            $this->Errors['errors']['message'] = $e->getTraceAsString();
+            $this->Errors['errors']['message'] = $exc->getMessage();
             return response()->json($this->Errors);
         }
     }

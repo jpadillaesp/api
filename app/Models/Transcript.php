@@ -19,6 +19,8 @@ class Transcript extends Model {
     protected $fillable = [
         'name', 'transcript', 'audiobase64', 'starTime', 'endTime', 'words', 'orchestrator_room_id', 'disabled'
     ];
+    
+    protected $table = 'transcript';
 
     public function orchestratorRoom() {
         return $this->belongsTo(OrchestratorRoom::class, 'orchestrator_room_id');

@@ -10,15 +10,15 @@ class DatabaseSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        //Model::unguard();
-        // $this->call('UsersTableSeeder');
-        User::truncate();
-        Post::truncate();
-        factory(App\User::class, 10)->create()->each(function($user){
-            $post = factory(App\Orchestrator::class)->make();
-            $user->posts()->save($post);
-        });
-        //Model::reguard();
+//        Model::unguard();
+        $this->call('UsersTableSeeder');
+//        User::truncate();
+//        Post::truncate();
+//        factory(App\Models\User::class, 10)->create()->each(function($user){
+//            $post = factory(App\Post::class)->make();
+//            $user->posts()->save($post);
+//        });
+//        Model::reguard();
     }
 
 }

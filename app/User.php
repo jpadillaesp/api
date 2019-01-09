@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Auth\Authenticatable;
 use Laravel\Lumen\Auth\Authorizable;
@@ -16,9 +16,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     use Authenticatable,
         Authorizable,
         CanResetPassword,
-        SoftDeletes; //Implementamos 
+        SoftDeletes;
 
-    protected $dates = ['deleted_at']; //Registramos la nueva columna
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -26,7 +26,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'api_token'
+        'full_name', 'email', 'blacklist', 'flatpassword', 'password', 'disable', 'api_token'
     ];
 
     /**
@@ -35,7 +35,13 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token'
+        'flatpassword', 'password', 'remember_token'
     ];
+    
+    protected $table = 'users';
+
+    public function orchestratorRooms() {
+        return $this->hasMany(OrchestratorRoom::class);
+    }
 
 }

@@ -20,6 +20,8 @@ class OrchestratorRoom extends Model {
         'title', 'description', 'room_code', 'user_id', 'disabled'
     ];
 
+    protected $table = 'orchestrator_room';
+    
     public function user() {
         return $this->belongsTo(User::class);
     }

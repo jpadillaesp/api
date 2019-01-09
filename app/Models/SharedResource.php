@@ -19,6 +19,8 @@ class SharedResource extends Model {
     protected $fillable = [
         'name', 'transcript', 'audiobase64', 'starTime', 'endTime', 'words', 'orchestrator_room_id', 'disabled'
     ];
+    
+    protected $table = 'shared_resource';
 
     public function user() {
         return $this->belongsToMany(User::class)
