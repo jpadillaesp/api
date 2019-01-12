@@ -10,7 +10,7 @@ use Exception;
 
 class OrchestratorRoomController extends Controller {
 
-    private $Errors = ['errors' => ['error' => false, 'message' => 'It was completed successfully.']];
+    private $Errors = ['Errors' => ['status' => false, 'message' => 'It was completed successfully.']];
     public $Orchestrators = null;
 
     /**
@@ -19,8 +19,14 @@ class OrchestratorRoomController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $this->Orchestrators = OrchestratorRoom::all();
-        return response()->json(array($Errors, 'orchestratorroom' => $this->Orchestrators));
+        try {
+
+            $this->Orchestrators = OrchestratorRoom::all();
+            return response()->json(array('Errors' => $this->Errors['Errors'], 'orchestratorroom' => $this->Orchestrators), 201);
+        } catch (Exception $exc) {
+            $this->Errors['Errors'] = ['status' => true, 'message' => $exc->getMessage()];
+            return response()->json(array('Errors' => $this->Errors['Errors']), 403);
+        }
     }
 
     /**
@@ -34,18 +40,17 @@ class OrchestratorRoomController extends Controller {
                     'user_id' => 'required'
         ]);
         if ($validator->fails()) {
-            $this->Errors['errors']['error'] = true;
-            $this->Errors['errors']['message'] = $validator->errors()->all();
+            $this->Errors['Errors'] = ['status' => true, 'message' => $validator->errors()->all()];
         }
         //$uuid = explode("-", Uuid::uuid());
         $request['room_code'] = $this->random_string(6);
         try {
             $this->Orchestrators = OrchestratorRoom::create($request->all());
-            return response()->json(array($this->Errors, 'orchestratorRoom' => $this->Orchestrators));
+            return response()->json(array('Errors' => $this->Errors['Errors'], 'orchestratorRoom' => $this->Orchestrators));
         } catch (Exception $exc) {
-            $this->Errors['errors']['error'] = true;
-            $this->Errors['errors']['message'] = $exc->getTraceAsString();
-            return response()->json($this->Errors);
+            $this->Errors['Errors']['status'] = true;
+            $this->Errors['Errors']['message'] = $exc->getTraceAsString();
+            return response()->json(array('Errors' => $this->Errors['Errors']));
         }
     }
 

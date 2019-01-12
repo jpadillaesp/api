@@ -18,6 +18,21 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         CanResetPassword,
         SoftDeletes;
 
+    public $id;
+    public $full_name;
+    public $email;
+    public $black_listed;
+    public $flatpassword;
+    public $password;
+    public $password_changed;
+    public $disabled;
+    public $api_token;
+    public $remember_token;
+    public $password_create;
+    public $confirmPassword_create;
+    public $password_change;
+    public $confirmPassword_change;
+    
     protected $dates = ['deleted_at'];
 
     /**
@@ -36,9 +51,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $hidden = [
-        'flatpassword', 'password', 'remember_token'
+        'flatpassword', 'password', 'remember_token', 'deleted_at'
     ];
-    
 
     public function orchestratorRooms() {
         return $this->hasMany(OrchestratorRoom::class);

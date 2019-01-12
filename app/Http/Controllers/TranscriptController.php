@@ -9,7 +9,7 @@ use App\Models\Transcript;
 
 class TranscriptController extends Controller {
 
-    private $Errors = ['errors' => ['error' => false, 'message' => 'It was completed successfully.']];
+    private $Errors = ['Errors' => ['status' => false, 'message' => 'It was completed successfully.']];
     public $Transcript = null;
 
     /**
@@ -33,16 +33,16 @@ class TranscriptController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            $this->Errors['errors']['error'] = true;
-            $this->Errors['errors']['message'] = $validator->errors()->all();
+            $this->Errors['Errors']['status'] = true;
+            $this->Errors['Errors']['message'] = $validator->errors()->all();
         }
 
         try {
             $this->Transcript = Transcript::create($request->all());
             return response()->json(array($this->Errors, 'transcript' => $this->Transcript ));
         } catch (Exception $e) {
-            $this->Errors['errors']['error'] = true;
-            $this->Errors['errors']['message'] = $e->getTraceAsString();
+            $this->Errors['Errors']['status'] = true;
+            $this->Errors['Errors']['message'] = $e->getTraceAsString();
             return response()->json(array($this->Errors, 'transcript' => $transcript));
         }
        

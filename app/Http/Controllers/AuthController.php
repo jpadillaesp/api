@@ -9,7 +9,7 @@ use App\Models\User;
 
 class AuthController extends Controller {
 
-    private $Errors = ['errors' => ['status' => false, 'message' => 'It was completed successfully.']];
+    private $Errors = ['Errors' => ['status' => false, 'message' => 'It was completed successfully.']];
     public $_Auth = null;
 
     /**
@@ -29,16 +29,13 @@ class AuthController extends Controller {
      */
     public function store(Request $request) {
         try {
-            $this->Errors['errors']['status'] = false;
-            $this->Errors['errors']['message'] = 'Successful Login of User.';
             $validator = Validator::make($request->all(), [
                         'email' => 'required|email',
                         'password' => 'required'
             ]);
 
             if ($validator->fails()) {
-                $this->Errors['errors']['status'] = true;
-                $this->Errors['errors']['message'] = $validator->errors()->all();
+                $this->Errors['Errors'] = ['status' => true, 'message' => $validator->errors()->all()];
             }
 
             $this->_Auth = User::where('email', $request->input('email'))->first();
@@ -46,17 +43,16 @@ class AuthController extends Controller {
             if (isset($this->_Auth)) {
                 if (password_verify($request->input('password'), $this->_Auth->password)) {
                     //unset($this->_Auth->password);
-                    return response()->json(array('errors' => $this->Errors['errors'], 'user' => $this->_Auth),201);
+                    return response()->json(array('Errors' => $this->Errors['Errors'], 'Users' => $this->_Auth), 201);
                 } else {
-                    return response()->json($this->Errors);
+                    return response()->json(array('Errors' => $this->Errors['Errors']));
                 }
             } else {
-                return response()->json($this->Errors);
+                return response()->json(array('Errors' => $this->Errors['Errors']));
             }
         } catch (Exception $exc) {
-            $this->Errors['errors']['error'] = true;
-            $this->Errors['errors']['message'] = $exc->getMessage();
-            return response()->json($this->Errors);
+            $this->Errors['Errors'] = ['status' => true, 'message' => $exc->getMessage()];
+            return response()->json(array('Errors' => $this->Errors['Errors']));
         }
     }
 
@@ -78,7 +74,37 @@ class AuthController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
-        //
+        try {
+            $validator = Validator::make($request->all(), [
+                        'id' => 'required',
+                        'email' => 'required|email',
+                        'password' => 'required',
+                        'password_changeAccount' => 'required',
+                        'confirmPassword_changeAccount' => 'required',
+            ]);
+            if ($validator->fails()) {
+                 $this->Errors['Errors'] = ['status' => true, 'message' => $validator->errors()->all()];
+            }
+            $this->_Auth = User::findOrFail($id);
+
+            if (isset($this->_Auth)) {
+                if (password_verify($request->input('password'), $this->_Auth->password )) {
+                    unset($this->_Auth->password);
+                    $this->_Auth->flatpassword = $request->input('password_changeAccount');
+                    $this->_Auth->password = (new BcryptHasher)->make($request['password_changeAccount']);
+                    $this->_Auth->password_changed = date('Y-m-d');
+                    $this->_Auth->update();
+                    return response()->json(array('Errors' => $this->Errors['Errors'], 'Users' => $this->_Auth), 201);
+                } else {
+                    return response()->json(array('Errors' => $this->Errors['Errors']),401);
+                }
+            } else {
+                return response()->json(array('Errors' => $this->Errors['Errors']),401);
+            }
+        } catch (Exception $e) {
+            $this->Errors['Errors'] = ['status' => true, 'message' => $exc->getMessage()];
+            return response()->json(array('Errors' => $this->Errors['Errors']));
+        }
     }
 
     /**

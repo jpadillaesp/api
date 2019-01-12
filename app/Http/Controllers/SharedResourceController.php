@@ -11,7 +11,7 @@ use App\Models\User;
 
 class SharedResourceController extends Controller {
 
-    private $Errors = ['errors' => ['error' => false, 'message' => 'It was completed successfully.']];
+    private $Errors = ['Errors' => ['status' => false, 'message' => 'It was completed successfully.']];
     public $SharedResource = null;
     /**
      * Create a new controller instance.
@@ -45,8 +45,8 @@ class SharedResourceController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            $this->Errors['errors']['error'] = true;
-            $this->Errors['errors']['message'] = $validator->errors()->all();
+            $this->Errors['Errors']['status'] = true;
+            $this->Errors['Errors']['message'] = $validator->errors()->all();
         }
         $this->SharedResource = SharedResource::create($request->all());
         return response()->json(array($this->Errors, '$sharedResource' => $this->SharedResource ));
