@@ -11,18 +11,18 @@
   |
  */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+$router->get('/', function () {
+    return view('home', ['title' => 'Desarrollo de sistema de autogestión de conocimiento como herramienta informática inclusiva Open source que favorezca el aprendizaje de estudiantes con discapacidad auditiva leve de tercer nivel de educación superior']);
 });
 
-//$router->get('home', function () {
-//    return view('home', ['name' => 'James']);
-//});
+$router->get('api', function () use ($router) {
+    return $router->app->version();
+});
 //$router->get('home', 'HomeController@index');
 
 $router->group(['prefix' => 'api/v1'], function($router) {
     $router->get('/', function () {
-        return 'Desarrollo de sistema de autogestión de conocimiento como herramienta informática inclusiva Open source que favorezca el aprendizaje de estudiantes con discapacidad auditiva leve de tercer nivel de educación superior';
+        return '© 2018 UG-CISC 1.0.0';
     });
 
     $router->group(['prefix' => 'auth', 'middleware' => 'cors'], function () use ($router) {
@@ -35,9 +35,11 @@ $router->group(['prefix' => 'api/v1'], function($router) {
         $router->get('view/{id:[0-9]+}', 'UsersController@show');
         $router->put('edit/{id:[0-9]+}', 'UsersController@edit');
         $router->delete('delete/{id:[0-9]+}', 'UsersController@destroy');
-        $router->get('index', 'UsersController@index');
+        $router->get('/', 'UsersController@index');
+//        $router->get('/', ['as' => 'users_index_path', 'uses' => 'UsersController@index']);
 //        $router->post('password/email', 'PasswordController@postEmail');
 //        $router->post('password/reset/{token}', 'PasswordController@postReset');
+        $router->get('rooms/{id:[0-9]+}', 'UsersController@OrchestratorRooms');
     });
 
     $router->group(['prefix' => 'orchestratorroom', 'middleware' => 'auth'], function () use ($router) {
@@ -45,7 +47,7 @@ $router->group(['prefix' => 'api/v1'], function($router) {
         $router->get('view/{id:[0-9]+}', 'OrchestratorRoomController@view');
         $router->put('edit/{id:[0-9]+}', 'OrchestratorRoomController@update');
         $router->delete('delete/{id:[0-9]+}', 'OrchestratorRoomController@delete');
-        $router->get('index', 'OrchestratorRoomController@index');
+        $router->get('/', 'OrchestratorRoomController@index');
     });
 
     $router->group(['prefix' => 'trnascript', 'middleware' => 'auth'], function () use ($router) {
@@ -53,7 +55,7 @@ $router->group(['prefix' => 'api/v1'], function($router) {
         $router->get('view/{id:[0-9]+}', 'TranscriptController@show');
         $router->put('edit/{id:[0-9]+}', 'TranscriptController@edit');
         $router->delete('delete/{id:[0-9]+}', 'TranscriptController@destroy');
-        $router->get('index', 'TranscriptController@index');
+        $router->get('/', 'TranscriptController@index');
     });
 
     $router->group(['prefix' => 'shared', 'middleware' => 'auth'], function () use ($router) {
@@ -61,7 +63,7 @@ $router->group(['prefix' => 'api/v1'], function($router) {
         $router->get('view/{id:[0-9]+}', 'SharedResourceController@show');
         $router->put('edit/{id:[0-9]+}', 'SharedResourceController@edit');
         $router->delete('delete/{id:[0-9]+}', 'SharedResourceController@destroy');
-        $router->get('index', 'SharedResourceController@index');
+        $router->get('/', 'SharedResourceController@index');
         $router->get('{user_id:[0-9]+}/{id:[0-9]+}', 'SharedResourceController@show');
     });
 });

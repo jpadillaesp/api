@@ -7,16 +7,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 
+
+
 class AuthController extends Controller {
 
     private $Errors = ['Errors' => ['status' => false, 'message' => 'It was completed successfully.']];
     public $_Auth = null;
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
+   
     public function index() {
         //
     }

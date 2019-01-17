@@ -1,49 +1,67 @@
-<title>Lumen</title>
+<!-- HTML for static distribution bundle build -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-<style>
-
-        body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            color: #B0BEC5;
-            display: table;
-            font-weight: 100;
-            font-family: 'Lato';
-        }
-        .container {
-            text-align: center;
-            display: table-cell;
-            vertical-align: middle;
-        }
-        .content {
-            text-align: center;
-            display: inline-block;
-        }
-        .title {
-            font-size: 96px;
-            margin-bottom: 40px;
-        }
-        .quote {
-            font-size: 24px;
-        }
-</style>
+        <title>{{config('swagger-lume.api.title')}}</title>
 
 
+        <link rel="stylesheet" type="text/css" href="home-assets/vendor/bootstrap/css/bootstrap.min.css" >
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 
-    <div class="container">
-        <nav>
+        <link rel="stylesheet" type="text/css" href="home-assets/vendor/fontawesome-free/css/all.min.css" >
+        <link rel="stylesheet" type="text/css" href="home-assets/css/coming-soon.min.css" >
+    </head>
 
-                Welcome, <?php echo $name; ?> |
-                <a href="/logout">Logout</a>
+    <body>
 
-                <a href="/login">Login</a> |
-                <a href="/register">Register</a> |
-                <a href="/forgotPassword">Forgot Password</a>
+        <div class="overlay"></div>
+        <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+            <source src="home-assets/mp4/bg.mp4" type="video/mp4">
+        </video>
 
-        </nav>
-        <div class="content">
-            <div class="title">Lumen.</div>
+        <div class="masthead">
+            <div class="masthead-bg"></div>
+            <div class="container h-100">
+                <div class="row h-100">
+                    <div class="col-12 my-auto">
+                        <div class="masthead-content text-white py-5 py-md-0">
+                            <h1 class="mb-3">{{config('swagger-lume.api.title')}}</h1>
+
+                            <p class="mb-5">Desarrollo de sistema de autogestión de conocimiento como herramienta informática inclusiva Open source que favorezca el aprendizaje de estudiantes con discapacidad auditiva leve de tercer nivel de educación superior</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+
+        <div class="social-icons">
+            <ul class="list-unstyled text-center mb-0">
+                <li class="list-unstyled-item">
+                    <a href="{{route('swagger-lume.docs')}}">
+                        <i class="fab fa-gratipay"></i>
+                    </a>
+                </li>
+                <li class="list-unstyled-item">
+                    <a href="{{route('swagger-lume.api')}}">
+                        <i class="fab fa-gratipay"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Bootstrap core JavaScript -->
+        <script src="home-assets/vendor/jquery/jquery.min.js"></script>
+        <script src="home-assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Custom scripts for this template -->
+        <script src="home-assets/js/coming-soon.min.js"></script>
+
+    </body>
+
+</html>
