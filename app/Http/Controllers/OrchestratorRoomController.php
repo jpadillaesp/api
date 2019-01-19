@@ -2,20 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
 use App\Models\OrchestratorRoom;
-//use Faker\Provider\Uuid;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+//use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
 use Exception;
-/**
- * @SWG\Swagger(
- *     @Info(title="OrchestratorRoom", version="0.1")
- * )
- */
+use OpenApi\Annotations\Get;
+use OpenApi\Annotations\MediaType;
+use OpenApi\Annotations\Property;
+use OpenApi\Annotations\RequestBody;
+use OpenApi\Annotations\Response;
+use OpenApi\Annotations\Schema;
+
 class OrchestratorRoomController extends Controller {
 
     private $Errors = ['Errors' => ['status' => false, 'message' => 'It was completed successfully.']];
-    public $Orchestrators = null;
+    private $Orchestrators = null;
 
     /**
      * @Get(path="/api/v1/orchestratorroom",
@@ -23,12 +26,6 @@ class OrchestratorRoomController extends Controller {
      *     summary="List Rooms",
      *     description="This can only be done by the logged in user.",
      *     operationId="all",
-     *     @RequestBody(
-     *         @MediaType(
-     *              mediaType="application/json",
-     *              @Schema(ref="#/components/schemas/OrchestratorRoom")
-     *         )
-     *     ),
      *     @Response(response="200", description="Colección de usuarios"),
      *     @Response(response="400", description="Ningun usuario registrado")
      * )
@@ -37,7 +34,7 @@ class OrchestratorRoomController extends Controller {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Http response
      */
     public function index() {
         try {
@@ -77,18 +74,15 @@ class OrchestratorRoomController extends Controller {
      *             )
      *         )
      *     ),
-     *     @Response(
-     *         response=403,
-     *         description="Ningun salon registrado"
-     *     )
+     *     @Response( response=403, description="Ningun salon registrado" )
      * )
      */
 
     /**
      * Store a newly created resource in database.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Http request
+     * @return Http response
      */
     public function create(Request $request) {
         $validator = Validator::make($request->all(), [
@@ -101,7 +95,7 @@ class OrchestratorRoomController extends Controller {
         }
         //$uuid = explode("-", Uuid::uuid());
         $request['room_code'] = $this->random_string(6);
-        
+
         try {
             $this->Orchestrators = OrchestratorRoom::create($request->all());
             return response()->json(array('Errors' => $this->Errors['Errors'], 'orchestratorRoom' => $this->Orchestrators));
@@ -115,50 +109,45 @@ class OrchestratorRoomController extends Controller {
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  Http request 
+     * @return  Http response
      */
     public function store(Request $request) {
         //
     }
 
     /**
-     * @Get(
-     *     path="/api/v1/orchestratorroom/view/{id:[0-9]+}",
-     *     deprecated=false,
-     *     tags={"add"},
-     *     @RequestBody(
-     *         @MediaType(
-     *            mediaType="application/json",
-     *            @Property(property="id", type="string", description="ID Rooms")
+     * @OA\Get(path="/api/v1/orchestratorroom/view/{id:[0-9]+}",
+     *     summary="Info for a specific room",
+     *     operationId="showRoomById",
+     *     tags={"orchestratorroom"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="The id of the room to retrieve",
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
      *         )
      *     ),
-     *     @Response(
-     *         response=202,
-     *         description="Colección de salones",
-     *         @MediaType(
-     *             mediaType="application/json",
-     *             @Schema(
-     *                 allOf={
-     *                     @Schema(ref="#/components/schemas/ApiResponse"),
-     *                     @Schema(
-     *                         type="object",
-     *                         @Property(property="data", ref="#/components/schemas/OrchestratorRoom")
-     *                     )
-     *                 }
-     *             )
-     *         )
+     *     @OA\Response(
+     *         response=200,
+     *         description="Expected response to a valid request",
+     *         @OA\Schema(ref="#/components/schemas/OrchestratorRoom")
      *     ),
-     *     @Response(
-     *         response=403,
-     *         description="Ningun usuario registrado"
+     *     @OA\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @OA\Schema(ref="#/components/schemas/Error")
      *     )
      * )
      */
 
     /**
-     * @param \Illuminate\Http\Request $id
-     * @return \Illuminate\Http\Response
+     * @param Http request 
+     * @param int $id
+     * @return Http response
      */
     public function show($id) {
         try {
@@ -173,44 +162,30 @@ class OrchestratorRoomController extends Controller {
     /**
      * @Put(
      *     path="/api/v1/orchestratorroom/edit/{id:[0-9]+}",
-     *     deprecated=false,
-     *     tags={"add"},
-     *     @RequestBody(
-     *         @MediaType(
-     *            mediaType="application/json",
-     *            @Property(property="data", ref="#/components/schemas/OrchestratorRoom"),
-     *            @Property(property="id", type="string", description="ID OrchestratorRoom")
-     *         )
+     *     summary="Updated OrchestratorRoom",
+     *     description="This can pnly be done by the logged in user.",
+     *     operationId="updateRoom",
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid user supplied"
      *     ),
-     *     @Response(
-     *         response=203,
-     *         description="Edicion de salon de orquestador",
-     *         @MediaType(
-     *             mediaType="application/json",
-     *             @Schema(
-     *                 allOf={
-     *                     @Schema(ref="#/components/schemas/ApiResponse"),
-     *                     @Schema(
-     *                         type="object",
-     *                         @Property(property="data", ref="#/components/schemas/OrchestratorRoom")
-     *                     )
-     *                 }
-     *             )
-     *         )
+     *     @OA\Response(
+     *         response=404,
+     *         description="User not found"
      *     ),
-     *     @Response(
-     *         response=403,
-     *         description="Ningun usuario registrado"
+     *     @OA\RequestBody(
+     *         description="Updated user object",
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/User")
      *     )
      * )
      */
 
     /**
-     * Update the specified resource in storage.
      * 
-     * @param \Illuminate\Http\Request $request
+     * @param Http request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Http response
      */
     public function update(Request $request, $id) {
         try {
@@ -235,24 +210,29 @@ class OrchestratorRoomController extends Controller {
         }
     }
 
-        /**
+    /**
      * @Delete(
      *     path="/api/v1/users/delete/{id:[0-9]+}",
-     *     deprecated=false,
-     *     tags={"add"},
-     *     @RequestBody(
-     *         @MediaType(
-     *            mediaType="application/json",
-     *            @Property(property="id", type="string", description="ID User")
+     *     summary="Delete user",
+     *     description="This can only be done by the logged in user.",
+     *     operationId="deleteUser",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="The name that needs to be deleted",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
      *         )
      *     ),
-     *     @Response(
-     *         response=204,
-     *         description="Usuario eliminado"
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid username supplied",
      *     ),
-     *     @Response(
-     *         response=403,
-     *         description="Usuario no existe."
+     *     @OA\Response(
+     *         response=404,
+     *         description="User not found",
      *     )
      * )
      */
@@ -261,7 +241,7 @@ class OrchestratorRoomController extends Controller {
      * Remove the specified resource from storage.
      * 
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Http response
      */
     public function destroy($id) {
         try {
@@ -274,7 +254,6 @@ class OrchestratorRoomController extends Controller {
         }
         return response()->json(array('Errors' => $this->Errors['Errors']), 201);
     }
-
 
     function random_string($max = 20) {
         $chars = explode(" ", "a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9");

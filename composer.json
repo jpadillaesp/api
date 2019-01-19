@@ -12,7 +12,8 @@
         "illuminate/auth": "^5.7",
         "illuminate/mail": "^5.7",
         "laravel/lumen-framework": "5.7.*",
-        "vlucas/phpdotenv": "~2.2"
+        "vlucas/phpdotenv": "~2.2",
+        "zircote/swagger-php ": "^3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -11,111 +11,13 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * @Schema(
- *     title="User",
- *     description="User"
- * )
- *
- * @package App\Http\Responses
- */
-class User extends Model implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract {
+class User extends Model implements
+AuthenticatableContract, AuthorizableContract, CanResetPasswordContract {
 
     use Authenticatable,
         Authorizable,
         CanResetPassword,
         SoftDeletes;
-
-    /**
-     * @Property(
-     *     type="integer",
-     *     description="id",
-     *     format="int64"
-     * )
-     *
-     * @var integer
-     */
-    public $id;
-
-    /**
-     * @Property(
-     *     type="string",
-     *     description="full_name"
-     * )
-     *
-     * @var string
-     */
-    public $full_name;
-
-    /**
-     * @Property(
-     *     type="string",
-     *     description="email"
-     * )
-     *
-     * @var string
-     */
-    public $email;
-
-    /**
-     * @Property(
-     *     type="integer",
-     *     description="black_listed"
-     * )
-     *
-     * @var int
-     */
-    public $black_listed;
-
-    /**
-     * @Property(
-     *     type="string",
-     *     description="flatpassword"
-     * )
-     *
-     * @var string
-     */
-    public $flatpassword;
-
-    /**
-     * @Property(
-     *     type="string",
-     *     description="password"
-     * )
-     *
-     * @var string
-     */
-    public $password;
-
-    /**
-     * @Property(
-     *     type="string",
-     *     description="password_changed"
-     * )
-     *
-     * @var string
-     */
-    public $password_changed;
-
-    /**
-     * @Property(
-     *     type="integer",
-     *     description="disabled"
-     * )
-     *
-     * @var int
-     */
-    public $disabled;
-
-    /**
-     * @Property(
-     *     type="string",
-     *     description="api_token"
-     * )
-     *
-     * @var int
-     */
-    public $api_token;
 
     /**
      * @var array

@@ -1,17 +1,14 @@
 <?php
-/**
- * @license Apache 2.0
- */
 
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\OrchestratorRoom;
 use App\Http\Controllers\Controller;
-
-use Illuminate\Http\Request;
-//use Illuminate\Support\Facades\Hash;
-use Illuminate\Hashing\BcryptHasher;
+//use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Hashing\BcryptHasher;
 use Exception;
 use OpenApi\Annotations\Get;
 use OpenApi\Annotations\MediaType;
@@ -20,37 +17,24 @@ use OpenApi\Annotations\RequestBody;
 use OpenApi\Annotations\Response;
 use OpenApi\Annotations\Schema;
 
-/**
- * @SWG\Swagger(
- *     @Info(title="User", version="0.1")
- * )
- */
 class UsersController extends Controller {
 
     private $Errors = ['Errors' => ['status' => false, 'message' => 'It was completed successfully.']];
     public $User = null;
 
     /**
-     * @Get(path="/api/v1/users",
-     *     tags={"index"},
-     *     summary="List user",
+     * @OA\Get(path="/api/v1/users",
+     *     tags={"users"},
+     *     summary="List all users",
      *     description="This can only be done by the logged in user.",
-     *     operationId="all",
-     *     @RequestBody(
-     *         @MediaType(
-     *              mediaType="application/json",
-     *              @Schema(ref="#/components/schemas/User")
-     *         )
-     *     ),
+     *     operationId="ListUser",
      *     @Response(response="200", description="Colección de usuarios"),
      *     @Response(response="400", description="Ningun usuario registrado")
      * )
-     */
-
-    /**
+     * 
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Http response
      */
     public function index() {
 
@@ -64,7 +48,10 @@ class UsersController extends Controller {
      *     tags={"add"},
      *     summary="Create user",
      *     @RequestBody(
-     *         @JsonContent(ref="#/components/schemas/User")
+     *         @MediaType(
+     *            mediaType="application/json",
+     *            @Property(property="data", ref="#/components/schemas/User")
+     *         )
      *     ),
      *     @Response(
      *         response="200",
@@ -85,8 +72,8 @@ class UsersController extends Controller {
      *     @Response(response="400", description="Ningun usuario registrado")
      * )
      * 
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Http request
+     * @return Http response
      */
     public function create(Request $request) {
         try {
@@ -113,40 +100,36 @@ class UsersController extends Controller {
     /**
      * @Get(
      *     path="/api/v1/users/view/{id:[0-9]+}",
-     *     deprecated=false,
-     *     tags={"add"},
-     *     @RequestBody(
-     *         @MediaType(
-     *            mediaType="application/json",
-     *            @Property(property="id", type="string", description="ID User")
+     *     summary="Info for a specific user",
+     *     operationId="showUserById",
+     *     tags={"user"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="The id of the user to retrieve",
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int32"
      *         )
      *     ),
-     *     @Response(
-     *         response=202,
-     *         description="Colección de usuarios",
-     *         @MediaType(
-     *             mediaType="application/json",
-     *             @Schema(
-     *                 allOf={
-     *                     @Schema(ref="#/components/schemas/ApiResponse"),
-     *                     @Schema(
-     *                         type="object",
-     *                         @Property(property="data", ref="#/components/schemas/User")
-     *                     )
-     *                 }
-     *             )
-     *         )
+     *     @OA\Response(
+     *         response=200,
+     *         description="Expected response to a valid request",
+     *         @OA\Schema(ref="#/components/schemas/User")
      *     ),
-     *     @Response(
-     *         response=402,
-     *         description="Ningun usuario registrado"
+     *     @OA\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @OA\Schema(ref="#/components/schemas/Error")
      *     )
      * )
      */
 
     /**
-     * @param \Illuminate\Http\Request $id
-     * @return \Illuminate\Http\Response
+     * @param Http request 
+     * @param int $id
+     * @return Http response
      */
     public function show($id) {
         try {
@@ -171,7 +154,7 @@ class UsersController extends Controller {
      *         )
      *     ),
      *     @Response(
-     *         response=203,
+     *         response="200",
      *         description="Colección de usuarios",
      *         @MediaType(
      *             mediaType="application/json",
@@ -186,17 +169,14 @@ class UsersController extends Controller {
      *             )
      *         )
      *     ),
-     *     @Response(
-     *         response=403,
-     *         description="Ningun usuario registrado"
-     *     )
+     *     @Response( response="400", description="Ningun usuario registrado" )
      * )
      */
 
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param Http request $request
      * @param int  $id
-     * @return \Illuminate\Http\Response
+     * @return Http response
      */
     public function edit(Request $request, $id) {
         try {
@@ -230,20 +210,15 @@ class UsersController extends Controller {
      *            @Property(property="id", type="string", description="ID User")
      *         )
      *     ),
-     *     @Response(
-     *         response=204,
-     *         description="Usuario eliminado"
-     *     ),
-     *     @Response(
-     *         response=404,
-     *         description="Usuario no existe."
-     *     )
+     *     @Response( response="200", description="Usuario eliminado" ),
+     *     @Response( response="400", description="Usuario no existe." )
      * )
      */
 
     /**
+     * @param Http request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Http response
      */
     public function destroy($id) {
         try {
@@ -259,42 +234,38 @@ class UsersController extends Controller {
 
     /**
      * @Get(
-     *     path="/api/v1/users/rooms/{id:[0-9]+}",
-     *     deprecated=false,
-     *     tags={"rooms"},
-     *     @RequestBody(
-     *         @MediaType(
-     *            mediaType="application/json",
-     *            @Property(property="$user_id", type="string", description="ID User")
+     *     path="/api/v1/users/rooms/{user_id:[0-9]+}",
+     *     summary="Info for a specific pet",
+     *     operationId="showRoomsById",
+     *     tags={"pets"},
+     *     @OA\Parameter(
+     *         name="user_id",
+     *         in="path",
+     *         required=true,
+     *         description="The id of the rooms to retrieve",
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
      *         )
      *     ),
-     *     @Response(
-     *         response="201",
-     *         description="Colección de Salones de Orquestadores",
-     *         @MediaType(
-     *             mediaType="application/json",
-     *             @Schema(
-     *                 allOf={
-     *                     @Schema(ref="#/components/schemas/ApiResponse"),
-     *                     @Schema(
-     *                         type="object",
-     *                         @Property(property="data", ref="#/components/schemas/OrchestratorRoom")
-     *                     )
-     *                 }
-     *             )
-     *         )
+     *     @OA\Response(
+     *         response=200,
+     *         description="Expected response to a valid request",
+     *         @OA\Schema(ref="#/components/schemas/OrchestratorRoom")
      *     ),
-     *     @Response(
-     *         response="405",
-     *         description="Ningun usuario registrado"
+     *     @OA\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *         @OA\Schema(ref="#/components/schemas/Error")
      *     )
      * )
      */
 
     /**
      * Getting the OrchestratorRoom's for a particular user 
-     * @param \Illuminate\Http\Request $user_id
-     * @return \Illuminate\Http\Response
+     * @param Http request 
+     * @param int $user_id
+     * @return Http response
      */
     public function OrchestratorRooms($user_id) {
         try {
