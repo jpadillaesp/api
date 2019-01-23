@@ -11,11 +11,13 @@
 
 
         <link rel="stylesheet" type="text/css" href="home-assets/vendor/bootstrap/css/bootstrap.min.css" >
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 
-        <link rel="stylesheet" type="text/css" href="home-assets/vendor/fontawesome-free/css/all.min.css" >
+                <link href="home-assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" >
+
         <link rel="stylesheet" type="text/css" href="home-assets/css/coming-soon.min.css" >
+        
     </head>
 
     <body>
@@ -43,13 +45,15 @@
         <div class="social-icons">
             <ul class="list-unstyled text-center mb-0">
                 <li class="list-unstyled-item">
-                    <a href="{{route('swagger-lume.docs')}}">
+                    <label for="docs">Documentación</label>
+                    <a href="{{route('swagger-lume.docs')}}" id="docs">
                         <i class="fab fa-gratipay"></i>
                     </a>
                 </li>
                 <li class="list-unstyled-item">
-                    <a href="{{route('swagger-lume.api')}}">
-                        <i class="fab fa-gratipay"></i>
+                    <label for="api">API</label>
+                    <a href="{{route('swagger-lume.api')}}" id="api">
+                        <i class="fab fa-calendar"></i>
                     </a>
                 </li>
             </ul>

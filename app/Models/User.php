@@ -11,6 +11,22 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+
+/**
+ * Class User
+ *
+ * @package App\Models
+ *
+ * @author  José Padilla <j.arturopad@gmail.com>
+ *
+ * @OA\Schema(
+ *     description="User",
+ *     title="User",
+ *     @OA\Xml(
+ *         name="User"
+ *     )
+ * )
+ */
 class User extends Model implements
 AuthenticatableContract, AuthorizableContract, CanResetPasswordContract {
 

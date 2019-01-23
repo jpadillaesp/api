@@ -1,0 +1,253 @@
+[2019-01-07 04:25:36] local.ERROR: PDOException: SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.
+ in C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Connectors\Connector.php:70
+Stack trace:
+#0 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Connectors\Connector.php(70): PDO->__construct('mysql:host=127....', 'root', 'root', Array)
+#1 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Connectors\Connector.php(46): Illuminate\Database\Connectors\Connector->createPdoConnection('mysql:host=127....', 'root', 'root', Array)
+#2 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Connectors\MySqlConnector.php(24): Illuminate\Database\Connectors\Connector->createConnection('mysql:host=127....', Array, Array)
+#3 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Connectors\ConnectionFactory.php(182): Illuminate\Database\Connectors\MySqlConnector->connect(Array)
+#4 [internal function]: Illuminate\Database\Connectors\ConnectionFactory->Illuminate\Database\Connectors\{closure}()
+#5 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Connection.php(918): call_user_func(Object(Closure))
+#6 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Connection.php(399): Illuminate\Database\Connection->getPdo()
+#7 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Connection.php(325): Illuminate\Database\Connection->getPdoForSelect(false)
+#8 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Connection.php(657): Illuminate\Database\Connection->Illuminate\Database\{closure}('select max(`bat...', Array)
+#9 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Connection.php(624): Illuminate\Database\Connection->runQueryCallback('select max(`bat...', Array, Object(Closure))
+#10 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Connection.php(333): Illuminate\Database\Connection->run('select max(`bat...', Array, Object(Closure))
+#11 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Query\Builder.php(2082): Illuminate\Database\Connection->select('select max(`bat...', Array, false)
+#12 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Query\Builder.php(2070): Illuminate\Database\Query\Builder->runSelect()
+#13 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Query\Builder.php(2556): Illuminate\Database\Query\Builder->Illuminate\Database\Query\{closure}()
+#14 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Query\Builder.php(2071): Illuminate\Database\Query\Builder->onceWithColumns(Array, Object(Closure))
+#15 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Query\Builder.php(2483): Illuminate\Database\Query\Builder->get(Array)
+#16 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Query\Builder.php(2433): Illuminate\Database\Query\Builder->aggregate('max', Array)
+#17 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Migrations\DatabaseMigrationRepository.php(138): Illuminate\Database\Query\Builder->max('batch')
+#18 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Migrations\DatabaseMigrationRepository.php(78): Illuminate\Database\Migrations\DatabaseMigrationRepository->getLastBatchNumber()
+#19 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Migrations\Migrator.php(225): Illuminate\Database\Migrations\DatabaseMigrationRepository->getLast()
+#20 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Migrations\Migrator.php(202): Illuminate\Database\Migrations\Migrator->getMigrationsForRollback(Array)
+#21 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Console\Migrations\RollbackCommand.php(63): Illuminate\Database\Migrations\Migrator->rollback(Array, Array)
+#22 [internal function]: Illuminate\Database\Console\Migrations\RollbackCommand->handle()
+#23 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\container\BoundMethod.php(29): call_user_func_array(Array, Array)
+#24 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\container\BoundMethod.php(87): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#25 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\container\BoundMethod.php(31): Illuminate\Container\BoundMethod::callBoundMethod(Object(Laravel\Lumen\Application), Array, Object(Closure))
+#26 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\container\Container.php(572): Illuminate\Container\BoundMethod::call(Object(Laravel\Lumen\Application), Array, Array, NULL)
+#27 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\console\Command.php(183): Illuminate\Container\Container->call(Array)
+#28 C:\MAMP\htdocs\proyecto\api\vendor\symfony\console\Command\Command.php(255): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Illuminate\Console\OutputStyle))
+#29 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\console\Command.php(170): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Illuminate\Console\OutputStyle))
+#30 C:\MAMP\htdocs\proyecto\api\vendor\symfony\console\Application.php(901): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#31 C:\MAMP\htdocs\proyecto\api\vendor\symfony\console\Application.php(262): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\Migrations\RollbackCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#32 C:\MAMP\htdocs\proyecto\api\vendor\symfony\console\Application.php(145): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#33 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\console\Application.php(89): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#34 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Console\Kernel.php(115): Illuminate\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#35 C:\MAMP\htdocs\proyecto\api\artisan(35): Laravel\Lumen\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#36 {main}
+
+Next Illuminate\Database\QueryException: SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.
+ (SQL: select max(`batch`) as aggregate from `migrations`) in C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Connection.php:664
+Stack trace:
+#0 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Connection.php(624): Illuminate\Database\Connection->runQueryCallback('select max(`bat...', Array, Object(Closure))
+#1 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Connection.php(333): Illuminate\Database\Connection->run('select max(`bat...', Array, Object(Closure))
+#2 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Query\Builder.php(2082): Illuminate\Database\Connection->select('select max(`bat...', Array, false)
+#3 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Query\Builder.php(2070): Illuminate\Database\Query\Builder->runSelect()
+#4 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Query\Builder.php(2556): Illuminate\Database\Query\Builder->Illuminate\Database\Query\{closure}()
+#5 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Query\Builder.php(2071): Illuminate\Database\Query\Builder->onceWithColumns(Array, Object(Closure))
+#6 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Query\Builder.php(2483): Illuminate\Database\Query\Builder->get(Array)
+#7 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Query\Builder.php(2433): Illuminate\Database\Query\Builder->aggregate('max', Array)
+#8 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Migrations\DatabaseMigrationRepository.php(138): Illuminate\Database\Query\Builder->max('batch')
+#9 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Migrations\DatabaseMigrationRepository.php(78): Illuminate\Database\Migrations\DatabaseMigrationRepository->getLastBatchNumber()
+#10 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Migrations\Migrator.php(225): Illuminate\Database\Migrations\DatabaseMigrationRepository->getLast()
+#11 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Migrations\Migrator.php(202): Illuminate\Database\Migrations\Migrator->getMigrationsForRollback(Array)
+#12 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\database\Console\Migrations\RollbackCommand.php(63): Illuminate\Database\Migrations\Migrator->rollback(Array, Array)
+#13 [internal function]: Illuminate\Database\Console\Migrations\RollbackCommand->handle()
+#14 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\container\BoundMethod.php(29): call_user_func_array(Array, Array)
+#15 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\container\BoundMethod.php(87): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#16 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\container\BoundMethod.php(31): Illuminate\Container\BoundMethod::callBoundMethod(Object(Laravel\Lumen\Application), Array, Object(Closure))
+#17 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\container\Container.php(572): Illuminate\Container\BoundMethod::call(Object(Laravel\Lumen\Application), Array, Array, NULL)
+#18 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\console\Command.php(183): Illuminate\Container\Container->call(Array)
+#19 C:\MAMP\htdocs\proyecto\api\vendor\symfony\console\Command\Command.php(255): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Illuminate\Console\OutputStyle))
+#20 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\console\Command.php(170): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Illuminate\Console\OutputStyle))
+#21 C:\MAMP\htdocs\proyecto\api\vendor\symfony\console\Application.php(901): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#22 C:\MAMP\htdocs\proyecto\api\vendor\symfony\console\Application.php(262): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Database\Console\Migrations\RollbackCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#23 C:\MAMP\htdocs\proyecto\api\vendor\symfony\console\Application.php(145): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#24 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\console\Application.php(89): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#25 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Console\Kernel.php(115): Illuminate\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#26 C:\MAMP\htdocs\proyecto\api\artisan(35): Laravel\Lumen\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#27 {main}  
+[2019-01-07 05:28:50] local.ERROR: Symfony\Component\Console\Exception\CommandNotFoundException: Command "make:HomeController" is not defined.
+
+Did you mean one of these?
+    make:command
+    make:controller
+    make:event
+    make:job
+    make:listener
+    make:mail
+    make:middleware
+    make:migration
+    make:model
+    make:policy
+    make:provider
+    make:resource
+    make:seeder
+    make:test in C:\MAMP\htdocs\proyecto\api\vendor\symfony\console\Application.php:632
+Stack trace:
+#0 C:\MAMP\htdocs\proyecto\api\vendor\symfony\console\Application.php(226): Symfony\Component\Console\Application->find('make:HomeContro...')
+#1 C:\MAMP\htdocs\proyecto\api\vendor\symfony\console\Application.php(145): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#2 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\console\Application.php(89): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#3 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Console\Kernel.php(115): Illuminate\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 C:\MAMP\htdocs\proyecto\api\artisan(35): Laravel\Lumen\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#5 {main} {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"make:HomeController\" is not defined.
+
+Did you mean one of these?
+    make:command
+    make:controller
+    make:event
+    make:job
+    make:listener
+    make:mail
+    make:middleware
+    make:migration
+    make:model
+    make:policy
+    make:provider
+    make:resource
+    make:seeder
+    make:test at C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\symfony\\console\\Application.php:632)
+[stacktrace]
+#0 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\symfony\\console\\Application.php(226): Symfony\\Component\\Console\\Application->find('make:HomeContro...')
+#1 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\symfony\\console\\Application.php(145): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#2 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\illuminate\\console\\Application.php(89): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\laravel\\lumen-framework\\src\\Console\\Kernel.php(115): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 C:\\MAMP\\htdocs\\proyecto\\api\\artisan(35): Laravel\\Lumen\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2019-01-07 05:38:59] local.ERROR: ErrorException: Undefined variable: name in C:\MAMP\htdocs\proyecto\api\storage\framework\views\126bcc0bf8f6b5d33f7311691f6a3c6e1ae03fd8.php:36
+Stack trace:
+#0 C:\MAMP\htdocs\proyecto\api\storage\framework\views\126bcc0bf8f6b5d33f7311691f6a3c6e1ae03fd8.php(36): Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}(8, 'Undefined varia...', 'C:\\MAMP\\htdocs\\...', 36, Array)
+#1 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\view\Engines\PhpEngine.php(43): include('C:\\MAMP\\htdocs\\...')
+#2 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\view\Engines\CompilerEngine.php(59): Illuminate\View\Engines\PhpEngine->evaluatePath('C:\\MAMP\\htdocs\\...', Array)
+#3 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\view\View.php(142): Illuminate\View\Engines\CompilerEngine->get('C:\\MAMP\\htdocs\\...', Array)
+#4 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\view\View.php(125): Illuminate\View\View->getContents()
+#5 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\view\View.php(90): Illuminate\View\View->renderContents()
+#6 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\http\Response.php(42): Illuminate\View\View->render()
+#7 C:\MAMP\htdocs\proyecto\api\vendor\symfony\http-foundation\Response.php(202): Illuminate\Http\Response->setContent(Object(Illuminate\View\View))
+#8 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Concerns\RoutesRequests.php(438): Symfony\Component\HttpFoundation\Response->__construct(Object(Illuminate\View\View))
+#9 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Concerns\RoutesRequests.php(291): Laravel\Lumen\Application->prepareResponse(Object(Illuminate\View\View))
+#10 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Concerns\RoutesRequests.php(265): Laravel\Lumen\Application->callActionOnArrayBasedRoute(Array)
+#11 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Concerns\RoutesRequests.php(165): Laravel\Lumen\Application->handleFoundRoute(Array)
+#12 [internal function]: Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}(Object(Laravel\Lumen\Http\Request))
+#13 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Routing\Pipeline.php(52): call_user_func(Object(Closure), Object(Laravel\Lumen\Http\Request))
+#14 C:\MAMP\htdocs\proyecto\api\app\Http\Middleware\CorsMiddleware.php(5): Laravel\Lumen\Routing\Pipeline->Laravel\Lumen\Routing\{closure}(Object(Laravel\Lumen\Http\Request))
+#15 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\pipeline\Pipeline.php(151): App\Http\Middleware\CorsMiddleware->handle(Object(Laravel\Lumen\Http\Request), Object(Closure))
+#16 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Laravel\Lumen\Http\Request))
+#17 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Routing\Pipeline.php(32): call_user_func(Object(Closure), Object(Laravel\Lumen\Http\Request))
+#18 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\pipeline\Pipeline.php(104): Laravel\Lumen\Routing\Pipeline->Laravel\Lumen\Routing\{closure}(Object(Laravel\Lumen\Http\Request))
+#19 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Concerns\RoutesRequests.php(415): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#20 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Concerns\RoutesRequests.php(171): Laravel\Lumen\Application->sendThroughPipeline(Array, Object(Closure))
+#21 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Concerns\RoutesRequests.php(108): Laravel\Lumen\Application->dispatch(NULL)
+#22 C:\MAMP\htdocs\proyecto\api\public\index.php(28): Laravel\Lumen\Application->run()
+#23 {main}
+
+Next ErrorException: Undefined variable: name (View: C:\MAMP\htdocs\proyecto\api\resources\views\home.blade.php) in C:\MAMP\htdocs\proyecto\api\storage\framework\views\126bcc0bf8f6b5d33f7311691f6a3c6e1ae03fd8.php:36
+Stack trace:
+#0 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\view\Engines\PhpEngine.php(45): Illuminate\View\Engines\CompilerEngine->handleViewException(Object(ErrorException), 1)
+#1 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\view\Engines\CompilerEngine.php(59): Illuminate\View\Engines\PhpEngine->evaluatePath('C:\\MAMP\\htdocs\\...', Array)
+#2 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\view\View.php(142): Illuminate\View\Engines\CompilerEngine->get('C:\\MAMP\\htdocs\\...', Array)
+#3 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\view\View.php(125): Illuminate\View\View->getContents()
+#4 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\view\View.php(90): Illuminate\View\View->renderContents()
+#5 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\http\Response.php(42): Illuminate\View\View->render()
+#6 C:\MAMP\htdocs\proyecto\api\vendor\symfony\http-foundation\Response.php(202): Illuminate\Http\Response->setContent(Object(Illuminate\View\View))
+#7 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Concerns\RoutesRequests.php(438): Symfony\Component\HttpFoundation\Response->__construct(Object(Illuminate\View\View))
+#8 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Concerns\RoutesRequests.php(291): Laravel\Lumen\Application->prepareResponse(Object(Illuminate\View\View))
+#9 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Concerns\RoutesRequests.php(265): Laravel\Lumen\Application->callActionOnArrayBasedRoute(Array)
+#10 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Concerns\RoutesRequests.php(165): Laravel\Lumen\Application->handleFoundRoute(Array)
+#11 [internal function]: Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}(Object(Laravel\Lumen\Http\Request))
+#12 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Routing\Pipeline.php(52): call_user_func(Object(Closure), Object(Laravel\Lumen\Http\Request))
+#13 C:\MAMP\htdocs\proyecto\api\app\Http\Middleware\CorsMiddleware.php(5): Laravel\Lumen\Routing\Pipeline->Laravel\Lumen\Routing\{closure}(Object(Laravel\Lumen\Http\Request))
+#14 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\pipeline\Pipeline.php(151): App\Http\Middleware\CorsMiddleware->handle(Object(Laravel\Lumen\Http\Request), Object(Closure))
+#15 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Laravel\Lumen\Http\Request))
+#16 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Routing\Pipeline.php(32): call_user_func(Object(Closure), Object(Laravel\Lumen\Http\Request))
+#17 C:\MAMP\htdocs\proyecto\api\vendor\illuminate\pipeline\Pipeline.php(104): Laravel\Lumen\Routing\Pipeline->Laravel\Lumen\Routing\{closure}(Object(Laravel\Lumen\Http\Request))
+#18 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Concerns\RoutesRequests.php(415): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#19 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Concerns\RoutesRequests.php(171): Laravel\Lumen\Application->sendThroughPipeline(Array, Object(Closure))
+#20 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Concerns\RoutesRequests.php(108): Laravel\Lumen\Application->dispatch(NULL)
+#21 C:\MAMP\htdocs\proyecto\api\public\index.php(28): Laravel\Lumen\Application->run()
+#22 {main} {"exception":"[object] (ErrorException(code: 0): Undefined variable: name (View: C:\\MAMP\\htdocs\\proyecto\\api\esources\\views\\home.blade.php) at C:\\MAMP\\htdocs\\proyecto\\api\\storage\\framework\\views\\126bcc0bf8f6b5d33f7311691f6a3c6e1ae03fd8.php:36, ErrorException(code: 0): Undefined variable: name at C:\\MAMP\\htdocs\\proyecto\\api\\storage\\framework\\views\\126bcc0bf8f6b5d33f7311691f6a3c6e1ae03fd8.php:36)
+[stacktrace]
+#0 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\illuminate\\view\\Engines\\PhpEngine.php(45): Illuminate\\View\\Engines\\CompilerEngine->handleViewException(Object(ErrorException), 1)
+#1 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\illuminate\\view\\Engines\\CompilerEngine.php(59): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('C:\\\\MAMP\\\\htdocs\\\\...', Array)
+#2 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\illuminate\\view\\View.php(142): Illuminate\\View\\Engines\\CompilerEngine->get('C:\\\\MAMP\\\\htdocs\\\\...', Array)
+#3 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\illuminate\\view\\View.php(125): Illuminate\\View\\View->getContents()
+#4 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\illuminate\\view\\View.php(90): Illuminate\\View\\View->renderContents()
+#5 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\illuminate\\http\\Response.php(42): Illuminate\\View\\View->render()
+#6 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\symfony\\http-foundation\\Response.php(202): Illuminate\\Http\\Response->setContent(Object(Illuminate\\View\\View))
+#7 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\laravel\\lumen-framework\\src\\Concerns\\RoutesRequests.php(438): Symfony\\Component\\HttpFoundation\\Response->__construct(Object(Illuminate\\View\\View))
+#8 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\laravel\\lumen-framework\\src\\Concerns\\RoutesRequests.php(291): Laravel\\Lumen\\Application->prepareResponse(Object(Illuminate\\View\\View))
+#9 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\laravel\\lumen-framework\\src\\Concerns\\RoutesRequests.php(265): Laravel\\Lumen\\Application->callActionOnArrayBasedRoute(Array)
+#10 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\laravel\\lumen-framework\\src\\Concerns\\RoutesRequests.php(165): Laravel\\Lumen\\Application->handleFoundRoute(Array)
+#11 [internal function]: Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}(Object(Laravel\\Lumen\\Http\\Request))
+#12 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\laravel\\lumen-framework\\src\\Routing\\Pipeline.php(52): call_user_func(Object(Closure), Object(Laravel\\Lumen\\Http\\Request))
+#13 C:\\MAMP\\htdocs\\proyecto\\api\\app\\Http\\Middleware\\CorsMiddleware.php(5): Laravel\\Lumen\\Routing\\Pipeline->Laravel\\Lumen\\Routing\\{closure}(Object(Laravel\\Lumen\\Http\\Request))
+#14 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\illuminate\\pipeline\\Pipeline.php(151): App\\Http\\Middleware\\CorsMiddleware->handle(Object(Laravel\\Lumen\\Http\\Request), Object(Closure))
+#15 [internal function]: Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Laravel\\Lumen\\Http\\Request))
+#16 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\laravel\\lumen-framework\\src\\Routing\\Pipeline.php(32): call_user_func(Object(Closure), Object(Laravel\\Lumen\\Http\\Request))
+#17 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\illuminate\\pipeline\\Pipeline.php(104): Laravel\\Lumen\\Routing\\Pipeline->Laravel\\Lumen\\Routing\\{closure}(Object(Laravel\\Lumen\\Http\\Request))
+#18 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\laravel\\lumen-framework\\src\\Concerns\\RoutesRequests.php(415): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#19 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\laravel\\lumen-framework\\src\\Concerns\\RoutesRequests.php(171): Laravel\\Lumen\\Application->sendThroughPipeline(Array, Object(Closure))
+#20 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\laravel\\lumen-framework\\src\\Concerns\\RoutesRequests.php(108): Laravel\\Lumen\\Application->dispatch(NULL)
+#21 C:\\MAMP\\htdocs\\proyecto\\api\\public\\index.php(28): Laravel\\Lumen\\Application->run()
+#22 {main}
+"} 
+[2019-01-07 23:46:02] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Laravel\Lumen\Routing\Router::where() in C:\MAMP\htdocs\proyecto\api\routes\web.php:35
+Stack trace:
+#0 [internal function]: {closure}(Object(Laravel\Lumen\Routing\Router))
+#1 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Routing\Router.php(62): call_user_func(Object(Closure), Object(Laravel\Lumen\Routing\Router))
+#2 C:\MAMP\htdocs\proyecto\api\routes\web.php(41): Laravel\Lumen\Routing\Router->group(Array, Object(Closure))
+#3 [internal function]: {closure}(Object(Laravel\Lumen\Routing\Router))
+#4 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Routing\Router.php(62): call_user_func(Object(Closure), Object(Laravel\Lumen\Routing\Router))
+#5 C:\MAMP\htdocs\proyecto\api\routes\web.php(68): Laravel\Lumen\Routing\Router->group(Array, Object(Closure))
+#6 C:\MAMP\htdocs\proyecto\api\bootstrap\app.php(114): require('C:\\MAMP\\htdocs\\...')
+#7 [internal function]: {closure}(Object(Laravel\Lumen\Routing\Router))
+#8 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Routing\Router.php(62): call_user_func(Object(Closure), Object(Laravel\Lumen\Routing\Router))
+#9 C:\MAMP\htdocs\proyecto\api\bootstrap\app.php(115): Laravel\Lumen\Routing\Router->group(Array, Object(Closure))
+#10 C:\MAMP\htdocs\proyecto\api\artisan(18): require('C:\\MAMP\\htdocs\\...')
+#11 {main} {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Call to undefined method Laravel\\Lumen\\Routing\\Router::where() at C:\\MAMP\\htdocs\\proyecto\\api\outes\\web.php:35)
+[stacktrace]
+#0 [internal function]: {closure}(Object(Laravel\\Lumen\\Routing\\Router))
+#1 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\laravel\\lumen-framework\\src\\Routing\\Router.php(62): call_user_func(Object(Closure), Object(Laravel\\Lumen\\Routing\\Router))
+#2 C:\\MAMP\\htdocs\\proyecto\\api\outes\\web.php(41): Laravel\\Lumen\\Routing\\Router->group(Array, Object(Closure))
+#3 [internal function]: {closure}(Object(Laravel\\Lumen\\Routing\\Router))
+#4 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\laravel\\lumen-framework\\src\\Routing\\Router.php(62): call_user_func(Object(Closure), Object(Laravel\\Lumen\\Routing\\Router))
+#5 C:\\MAMP\\htdocs\\proyecto\\api\outes\\web.php(68): Laravel\\Lumen\\Routing\\Router->group(Array, Object(Closure))
+#6 C:\\MAMP\\htdocs\\proyecto\\api\\bootstrap\\app.php(114): require('C:\\\\MAMP\\\\htdocs\\\\...')
+#7 [internal function]: {closure}(Object(Laravel\\Lumen\\Routing\\Router))
+#8 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\laravel\\lumen-framework\\src\\Routing\\Router.php(62): call_user_func(Object(Closure), Object(Laravel\\Lumen\\Routing\\Router))
+#9 C:\\MAMP\\htdocs\\proyecto\\api\\bootstrap\\app.php(115): Laravel\\Lumen\\Routing\\Router->group(Array, Object(Closure))
+#10 C:\\MAMP\\htdocs\\proyecto\\api\\artisan(18): require('C:\\\\MAMP\\\\htdocs\\\\...')
+#11 {main}
+"} 
+[2019-01-07 23:50:07] local.ERROR: Symfony\Component\Debug\Exception\FatalThrowableError: Call to undefined method Laravel\Lumen\Routing\Router::where() in C:\MAMP\htdocs\proyecto\api\routes\web.php:61
+Stack trace:
+#0 [internal function]: {closure}(Object(Laravel\Lumen\Routing\Router))
+#1 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Routing\Router.php(62): call_user_func(Object(Closure), Object(Laravel\Lumen\Routing\Router))
+#2 C:\MAMP\htdocs\proyecto\api\routes\web.php(67): Laravel\Lumen\Routing\Router->group(Array, Object(Closure))
+#3 [internal function]: {closure}(Object(Laravel\Lumen\Routing\Router))
+#4 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Routing\Router.php(62): call_user_func(Object(Closure), Object(Laravel\Lumen\Routing\Router))
+#5 C:\MAMP\htdocs\proyecto\api\routes\web.php(68): Laravel\Lumen\Routing\Router->group(Array, Object(Closure))
+#6 C:\MAMP\htdocs\proyecto\api\bootstrap\app.php(114): require('C:\\MAMP\\htdocs\\...')
+#7 [internal function]: {closure}(Object(Laravel\Lumen\Routing\Router))
+#8 C:\MAMP\htdocs\proyecto\api\vendor\laravel\lumen-framework\src\Routing\Router.php(62): call_user_func(Object(Closure), Object(Laravel\Lumen\Routing\Router))
+#9 C:\MAMP\htdocs\proyecto\api\bootstrap\app.php(115): Laravel\Lumen\Routing\Router->group(Array, Object(Closure))
+#10 C:\MAMP\htdocs\proyecto\api\artisan(18): require('C:\\MAMP\\htdocs\\...')
+#11 {main} {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Call to undefined method Laravel\\Lumen\\Routing\\Router::where() at C:\\MAMP\\htdocs\\proyecto\\api\outes\\web.php:61)
+[stacktrace]
+#0 [internal function]: {closure}(Object(Laravel\\Lumen\\Routing\\Router))
+#1 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\laravel\\lumen-framework\\src\\Routing\\Router.php(62): call_user_func(Object(Closure), Object(Laravel\\Lumen\\Routing\\Router))
+#2 C:\\MAMP\\htdocs\\proyecto\\api\outes\\web.php(67): Laravel\\Lumen\\Routing\\Router->group(Array, Object(Closure))
+#3 [internal function]: {closure}(Object(Laravel\\Lumen\\Routing\\Router))
+#4 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\laravel\\lumen-framework\\src\\Routing\\Router.php(62): call_user_func(Object(Closure), Object(Laravel\\Lumen\\Routing\\Router))
+#5 C:\\MAMP\\htdocs\\proyecto\\api\outes\\web.php(68): Laravel\\Lumen\\Routing\\Router->group(Array, Object(Closure))
+#6 C:\\MAMP\\htdocs\\proyecto\\api\\bootstrap\\app.php(114): require('C:\\\\MAMP\\\\htdocs\\\\...')
+#7 [internal function]: {closure}(Object(Laravel\\Lumen\\Routing\\Router))
+#8 C:\\MAMP\\htdocs\\proyecto\\api\\vendor\\laravel\\lumen-framework\\src\\Routing\\Router.php(62): call_user_func(Object(Closure), Object(Laravel\\Lumen\\Routing\\Router))
+#9 C:\\MAMP\\htdocs\\proyecto\\api\\bootstrap\\app.php(115): Laravel\\Lumen\\Routing\\Router->group(Array, Object(Closure))
+#10 C:\\MAMP\\htdocs\\proyecto\\api\\artisan(18): require('C:\\\\MAMP\\\\htdocs\\\\...')
+#11 {main}
+"} 

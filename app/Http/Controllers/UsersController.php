@@ -17,6 +17,14 @@ use OpenApi\Annotations\RequestBody;
 use OpenApi\Annotations\Response;
 use OpenApi\Annotations\Schema;
 
+
+/**
+ * Class UsersController
+ *
+ * @package App\Http\Controllers
+ *
+ * @author  José Padilla <j.arturopad@gmail.com>
+ */
 class UsersController extends Controller {
 
     private $Errors = ['Errors' => ['status' => false, 'message' => 'It was completed successfully.']];
@@ -28,8 +36,12 @@ class UsersController extends Controller {
      *     summary="List all users",
      *     description="This can only be done by the logged in user.",
      *     operationId="ListUser",
-     *     @Response(response="200", description="Colección de usuarios"),
-     *     @Response(response="400", description="Ningun usuario registrado")
+     *     @OA\Response(
+     *         response="200",
+     *         description="successful operation",
+     *         @OA\JsonContent(ref="#/components/schemas/User"),
+     *     ),
+     *     @Response(response=400, description="Ningun usuario registrado")
      * )
      * 
      * Display a listing of the resource.
@@ -47,29 +59,17 @@ class UsersController extends Controller {
      *     path="/api/v1/users/add",
      *     tags={"add"},
      *     summary="Create user",
-     *     @RequestBody(
-     *         @MediaType(
-     *            mediaType="application/json",
-     *            @Property(property="data", ref="#/components/schemas/User")
-     *         )
+     *     description="This can only be done by the logged in user.",
+     *     operationId="createUser",
+     *     @OA\Response(
+     *         response="default",
+     *         description="successful operation"
      *     ),
-     *     @Response(
-     *         response="200",
-     *         description="Normal operation response",
-     *         @MediaType(
-     *             mediaType="application/json",
-     *             @Schema(
-     *                 allOf={
-     *                     @Schema(ref="#/components/schemas/ApiResponse"),
-     *                     @Schema(
-     *                         type="object",
-     *                         @Property(property="data", ref="#/components/schemas/User")
-     *                     )
-     *                 }
-     *             )
-     *         )
-     *     ),
-     *     @Response(response="400", description="Ningun usuario registrado")
+     *     @OA\RequestBody(
+     *         description="Create user object",
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/User")
+     *     )
      * )
      * 
      * @param Http request
@@ -144,32 +144,32 @@ class UsersController extends Controller {
     /**
      * @Put(
      *     path="/api/v1/users/edit/{id:[0-9]+}",
-     *     deprecated=false,
-     *     tags={"add"},
-     *     @RequestBody(
-     *         @MediaType(
-     *            mediaType="application/json",
-     *            @Property(property="data", ref="#/components/schemas/User"),
-     *            @Property(property="id", type="string", description="ID User")
+     *     summary="Updated user",
+     *     description="This can pnly be done by the logged in user.",
+     *     operationId="updateUser",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="name that to be updated",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int32"
      *         )
      *     ),
-     *     @Response(
-     *         response="200",
-     *         description="Colección de usuarios",
-     *         @MediaType(
-     *             mediaType="application/json",
-     *             @Schema(
-     *                 allOf={
-     *                     @Schema(ref="#/components/schemas/ApiResponse"),
-     *                     @Schema(
-     *                         type="object",
-     *                         @Property(property="data", ref="#/components/schemas/User")
-     *                     )
-     *                 }
-     *             )
-     *         )
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid user supplied"
      *     ),
-     *     @Response( response="400", description="Ningun usuario registrado" )
+     *     @OA\Response(
+     *         response=404,
+     *         description="User not found"
+     *     ),
+     *     @OA\RequestBody(
+     *         description="Updated user object",
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/User")
+     *     )
      * )
      */
 
@@ -202,16 +202,27 @@ class UsersController extends Controller {
     /**
      * @Delete(
      *     path="/api/v1/users/delete/{id:[0-9]+}",
-     *     deprecated=false,
-     *     tags={"add"},
-     *     @RequestBody(
-     *         @MediaType(
-     *            mediaType="application/json",
-     *            @Property(property="id", type="string", description="ID User")
+     *     summary="Delete user",
+     *     description="This can pnly be done by the logged in user.",
+     *     operationId="deleteUser",
+     *     @OA\Parameter(
+     *         name="username",
+     *         in="path",
+     *         description="name that to be updated",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int32"
      *         )
      *     ),
-     *     @Response( response="200", description="Usuario eliminado" ),
-     *     @Response( response="400", description="Usuario no existe." )
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid user supplied"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="User not found"
+     *     ),
      * )
      */
 
